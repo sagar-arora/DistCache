@@ -1,0 +1,26 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.arorasagar.cache.messages;
+
+service CacheServer {
+  rpc get(GetRequest) returns (GetResponse) {}
+
+  rpc put(PutRequest) returns (PutResponse) {}
+}
+
+message GetRequest {
+   string key = 1;
+}
+
+message GetResponse {
+   string val = 1;
+}
+
+message PutRequest {
+   string key = 1;
+   string val = 2;
+}
+
+message PutResponse {
+  string key = 1;
+}
