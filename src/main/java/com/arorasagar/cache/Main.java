@@ -22,7 +22,8 @@ public class Main {
 
         Server server = ServerBuilder
                 .forPort(config.getPort())
-                .addService(new CacheServerImpl(config, consistentHashingRing, cache)).build();
+                .addService(new CacheServerImpl(config, consistentHashingRing, cache))
+                .build();
 
         server.start();
         server.awaitTermination();

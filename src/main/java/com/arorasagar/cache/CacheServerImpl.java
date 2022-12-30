@@ -14,6 +14,7 @@ public class CacheServerImpl extends CacheServerGrpc.CacheServerImplBase {
     Configuration configuration;
     Cache cache;
     Node self;
+
     public CacheServerImpl(Configuration configuration,
                            ConsistentHashingRing consistentHashingRing,
                            Cache cache) {
