@@ -1,0 +1,23 @@
+{
+  "replicationFactor" : 2,
+  "id" : "10000",
+  "address" : "localhost",
+  "port": "9001",
+  "nodes": [
+    {
+      "address" : "localhost",
+      "port": "9001",
+      "id": "1000"
+    },
+    {
+      "address" : "localhost",
+      "port": "9002",
+      "id": "50000"
+    },
+    {
+      "address" : "localhost",
+      "port": "9003",
+      "id": "80000"
+    }
+  ]
+}

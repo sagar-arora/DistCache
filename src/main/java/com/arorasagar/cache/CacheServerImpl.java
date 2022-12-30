@@ -29,13 +29,21 @@ public class CacheServerImpl extends CacheServerGrpc.CacheServerImplBase {
         String key = request.getKey();
         Optional<Node> mainNodeOptional = this.consistentHashingRing.getNode(key);
 
-        if (!mainNodeOptional.isPresent()) {
+        if (mainNodeOptional.isEmpty()) {
             log.info("node is not found on the ring...");
         }
 
+        if (mainNodeOptional.isEmpty()) {
+            GetResponse getResponse = GetResponse.newBuilder().setVal(null).build();
+            responseObserver.onNext(getResponse);
+            responseObserver.onCompleted();
+            return;
+        }
         Node mainNode = mainNodeOptional.get();
 
+        log.info("The node for the key: {} is : {}", key, mainNode);
         if (mainNode.equals(this.self)) {
+            log.info("Found the key : {} on the self : {}", key, mainNode);
             String val = cache.cache.get(key);
             GetResponse getResponse = GetResponse.newBuilder().setVal(val).build();
             responseObserver.onNext(getResponse);
@@ -61,13 +69,19 @@ public class CacheServerImpl extends CacheServerGrpc.CacheServerImplBase {
         String val = request.getVal();
         Optional<Node> mainNodeOptional = this.consistentHashingRing.getNode(key);
 
-        if (!mainNodeOptional.isPresent()) {
+        if (mainNodeOptional.isEmpty()) {
             log.info("node is not found on the ring...");
+            PutResponse response = PutResponse.newBuilder().setKey(null).build();
+            responseObserver.onNext(response);
+            responseObserver.onCompleted();
+            return;
         }
 
         Node mainNode = mainNodeOptional.get();
 
+        log.info("The node for the key: {} is : {}", key, mainNode);
         if (mainNode.equals(this.self)) {
+            log.info("Found the key : {} on the self : {}", key, mainNode);
             cache.cache.put(key, val);
             PutResponse response = PutResponse.newBuilder().setKey(val).build();
             responseObserver.onNext(response);

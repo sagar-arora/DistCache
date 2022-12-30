@@ -11,8 +11,8 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        String configPath = args[0];
-        File f = new File(configPath);
+            String configPath = args[0];
+            File f = new File(configPath);
         Configuration config = Configuration.fromJsonFile(f);
 
         log.info("Starting the server at the port: {}", config);

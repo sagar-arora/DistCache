@@ -1,15 +1,13 @@
 package com.arorasagar.cache;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 
 @EqualsAndHashCode
 @Getter
 @Builder
 @ToString
+@NoArgsConstructor
 public class Node implements RingNode {
     String address;
     int port;

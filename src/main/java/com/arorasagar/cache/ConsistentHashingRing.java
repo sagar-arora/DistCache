@@ -32,7 +32,13 @@ public class ConsistentHashingRing {
     }
 
     public Optional<Node> getNode(String key) {
-        int hash = hasher.getHash(key);
+        int hash = -1;
+        try {
+            hash = hasher.getHash(key);
+        } catch (NumberFormatException e) {
+            return Optional.empty();
+        }
+
         Integer val = ring.ceilingKey(hash);
         if (val == null) {
             return Optional.of(ring.firstEntry().getValue());

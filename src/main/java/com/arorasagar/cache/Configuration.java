@@ -12,8 +12,10 @@ import java.util.List;
 @Builder
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class Configuration {
-    int rf;
+    int replicationFactor;
     String id;
     String address;
     int port;
