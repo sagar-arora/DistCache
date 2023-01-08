@@ -1,4 +1,4 @@
-package com.arorasagar.cache;
+package com.arorasagar.cache.storage;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

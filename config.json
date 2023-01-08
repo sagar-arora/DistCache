@@ -3,6 +3,8 @@
   "id" : "10000",
   "address" : "localhost",
   "port": "9001",
+  "localMode": "true",
+  "dataDirectory": "",
   "nodes": [
     {
       "address" : "localhost",

@@ -20,6 +20,12 @@ public class Configuration {
     String address;
     int port;
     List<Node> nodes;
+    boolean localMode;
+    String dataDirectory;
+
+    public boolean isLocalMode() {
+        return localMode;
+    }
 
     public static Configuration fromJsonFile(File jsonFile) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
