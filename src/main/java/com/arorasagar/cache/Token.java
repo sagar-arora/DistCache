@@ -1,14 +1,12 @@
 package com.arorasagar.cache;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor
 @Builder
 @Getter
 @EqualsAndHashCode
+@AllArgsConstructor
 public class Token {
     private String token;
     private String rowkey;

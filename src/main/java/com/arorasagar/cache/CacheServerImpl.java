@@ -1,6 +1,7 @@
 package com.arorasagar.cache;
 
 import com.arorasagar.cache.client.CacheClient;
+import com.arorasagar.cache.hashing.ConsistentHashing;
 import com.arorasagar.cache.messages.*;
 import com.arorasagar.cache.storage.Cache;
 import io.grpc.stub.StreamObserver;
@@ -11,15 +12,15 @@ import java.util.Optional;
 @Log4j2
 public class CacheServerImpl extends CacheServerGrpc.CacheServerImplBase {
 
-    ConsistentHashingRing consistentHashingRing;
+    ConsistentHashing consistentHashing;
     Configuration configuration;
     Cache cache;
     Node self;
 
     public CacheServerImpl(Configuration configuration,
-                           ConsistentHashingRing consistentHashingRing,
+                           ConsistentHashing consistentHashing,
                            Cache cache) {
-        this.consistentHashingRing = consistentHashingRing;
+        this.consistentHashing = consistentHashing;
         this.configuration = configuration;
         this.cache = cache;
         this.self = new Node(configuration.getAddress(), configuration.getPort(), configuration.getId());
@@ -28,7 +29,7 @@ public class CacheServerImpl extends CacheServerGrpc.CacheServerImplBase {
     @Override
     public void get(GetRequest request, StreamObserver<GetResponse> responseObserver) {
         String key = request.getKey();
-        Optional<Node> mainNodeOptional = this.consistentHashingRing.getNode(key);
+        Optional<Node> mainNodeOptional = this.consistentHashing.getNode(key);
 
         if (mainNodeOptional.isEmpty()) {
             log.info("node is not found on the ring...");
@@ -68,7 +69,7 @@ public class CacheServerImpl extends CacheServerGrpc.CacheServerImplBase {
     public void put(PutRequest request, StreamObserver<PutResponse> responseObserver) {
         String key = request.getKey();
         String val = request.getVal();
-        Optional<Node> mainNodeOptional = this.consistentHashingRing.getNode(key);
+        Optional<Node> mainNodeOptional = this.consistentHashing.getNode(key);
 
         if (mainNodeOptional.isEmpty()) {
             log.info("node is not found on the ring...");

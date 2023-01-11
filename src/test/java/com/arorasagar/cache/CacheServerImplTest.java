@@ -1,5 +1,6 @@
 package com.arorasagar.cache;
 
+import com.arorasagar.cache.hashing.ConsistentHashing;
 import com.arorasagar.cache.messages.*;
 import com.arorasagar.cache.storage.Cache;
 import com.google.common.collect.ImmutableList;
@@ -23,7 +24,7 @@ public class CacheServerImplTest {
     public static final Node NODE2 = Node.builder().address("localhost").id("1000").port(8081).build();
     public static final Node NODE3 = Node.builder().address("localhost").id("2000").port(8082).build();
     List<Node> NODES = ImmutableList.of(NODE1, NODE2, NODE3);
-    ConsistentHashingRing consistentHashingRing;
+    ConsistentHashing consistentHashing;
         /**
          * This creates and starts an in-process server, and creates a client with an in-process channel.
          * When the test is done, it also shuts down the in-process client and server.
@@ -51,13 +52,13 @@ public class CacheServerImplTest {
 
     @Test
     public void testGetFromSameNode() throws IOException {
-        consistentHashingRing = new ConsistentHashingRing(NODES);
+        consistentHashing = new ConsistentHashing(NODES);
         // Generate a unique in-process server name.
         String serverName = InProcessServerBuilder.generateName();
         Configuration configuration1 = Configuration.builder().address("localhost").id("400").port(8080).nodes(NODES).build();
         Cache cache = new Cache();
         grpcCleanupRule.register(InProcessServerBuilder.forName(serverName).directExecutor()
-                .addService(new CacheServerImpl(configuration1, consistentHashingRing, cache)).build().start());
+                .addService(new CacheServerImpl(configuration1, consistentHashing, cache)).build().start());
 
         CacheServerGrpc.CacheServerBlockingStub blockingStub = CacheServerGrpc.newBlockingStub(
                 // Create a client channel and register for automatic graceful shutdown.

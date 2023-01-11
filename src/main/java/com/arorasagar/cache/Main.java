@@ -1,5 +1,6 @@
 package com.arorasagar.cache;
 
+import com.arorasagar.cache.hashing.ConsistentHashing;
 import com.arorasagar.cache.storage.Cache;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
@@ -19,11 +20,11 @@ public class Main {
         log.info("Starting the server at the port: {}", config);
 
         Cache cache = new Cache();
-        ConsistentHashingRing consistentHashingRing = new ConsistentHashingRing(config.getNodes());
+        ConsistentHashing consistentHashing = new ConsistentHashing(config.getNodes());
 
         Server server = ServerBuilder
                 .forPort(config.getPort())
-                .addService(new CacheServerImpl(config, consistentHashingRing, cache))
+                .addService(new CacheServerImpl(config, consistentHashing, cache))
                 .build();
 
         server.start();

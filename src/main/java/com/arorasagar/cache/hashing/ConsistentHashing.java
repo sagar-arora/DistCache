@@ -1,7 +1,6 @@
-package com.arorasagar.cache;
+package com.arorasagar.cache.hashing;
 
-import com.arorasagar.cache.hashing.Hashing;
-import com.arorasagar.cache.hashing.IdentityHashing;
+import com.arorasagar.cache.Node;
 import lombok.extern.log4j.Log4j2;
 
 import java.util.List;
@@ -9,16 +8,16 @@ import java.util.Optional;
 import java.util.TreeMap;
 
 @Log4j2
-public class ConsistentHashingRing {
+public class ConsistentHashing {
 
     private final TreeMap<Integer, Node> ring = new TreeMap<>();
     private final Hashing hasher;
 
-    public ConsistentHashingRing(List<Node> nodes) {
+    public ConsistentHashing(List<Node> nodes) {
         this(nodes, new IdentityHashing());
     }
 
-    public ConsistentHashingRing(List<Node> nodes, Hashing hasher) {
+    public ConsistentHashing(List<Node> nodes, Hashing hasher) {
         this.hasher = hasher;
         for (Node node : nodes) {
             addNode(node);

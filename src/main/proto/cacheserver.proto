@@ -6,6 +6,8 @@ service CacheServer {
   rpc get(GetRequest) returns (GetResponse) {}
 
   rpc put(PutRequest) returns (PutResponse) {}
+
+  rpc CreateKeySpace(CreateKeySpaceRequest) returns (CreateKeySpaceResponse) {}
 }
 
 message GetRequest {
@@ -23,4 +25,12 @@ message PutRequest {
 
 message PutResponse {
   string key = 1;
+}
+
+message CreateKeySpaceRequest {
+  string name = 1;
+}
+
+message CreateKeySpaceResponse {
+  string name = 1;
 }
