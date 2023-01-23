@@ -1,6 +1,6 @@
 package com.arorasagar.cache.meta;
 
-import com.arorasagar.cache.model.KeySpace;
+import com.arorasagar.cache.model.Keyspace;
 
 import java.util.Map;
 
@@ -8,11 +8,11 @@ public interface MetadataStorage {
 
     void init();
 
-    Map<String, KeySpace> getKeySpaces();
+    Map<String, Keyspace> getKeySpaces();
 
-    void storeKeyspace(KeySpace keySpace);
+    void storeKeyspace(Keyspace keySpace);
 
-    void updateKeyspace(KeySpace keySpace);
+    void updateKeyspace(Keyspace keySpace);
 
     void loadKeySpaces();
 }

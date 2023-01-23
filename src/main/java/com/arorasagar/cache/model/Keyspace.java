@@ -1,0 +1,11 @@
+package com.arorasagar.cache.model;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class Keyspace {
+    private String name;
+    private KeyspaceConfiguration keySpaceConfiguration;
+}
