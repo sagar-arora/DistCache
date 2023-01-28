@@ -6,11 +6,11 @@ public class ColumnValue extends AtomicValue {
     private long createTime;
     private long ttl;
 
-    public ColumnValue(){
+    public ColumnValue() {
 
     }
 
-    public ColumnValue(String value, long time, long createTime, long ttl){
+    public ColumnValue(String value, long time, long createTime, long ttl) {
         this.value = value;
         this.time = time;
         this.createTime = createTime;
@@ -78,5 +78,4 @@ public class ColumnValue extends AtomicValue {
     public String toString() {
         return "ColumnValue [value=" + value + ", createTime=" + createTime + ", ttl=" + ttl + "]";
     }
-
 }
